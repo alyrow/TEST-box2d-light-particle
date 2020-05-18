@@ -1,0 +1,17 @@
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+eclipse.project.name = appName + '-core'
+
+
+dependencies {
+	api "com.badlogicgames.gdx:gdx:$gdxVersion"
+	api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
+	api "com.badlogicgames.box2dlights:box2dlights:$box2dlightsVersion"
+
+	api files('libs/box2d-light-particle-1.0.0.jar')
+	//api 'com.csnakes:box2d-light-particle:0.3.2'
+
+
+		//implementation 'com.github.alyrow:box2d-light-particle:v1.0.0'
+	api 'com.github.Anuken:GdxGifRecorder:1.4'
+
+}
