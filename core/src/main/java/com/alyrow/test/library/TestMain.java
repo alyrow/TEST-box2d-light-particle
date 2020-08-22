@@ -1,6 +1,8 @@
 package com.alyrow.test.library;
 
 import box2dLight.RayHandler;
+import com.alyrow.gdx.particle.pack.Packer;
+import com.alyrow.gdx.particle.texture.AnimatedTexture;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.*;
@@ -62,23 +64,28 @@ public class TestMain extends ApplicationAdapter {
 
 
 		ParticleRules rules = new ParticleRules();
-		rules.setNumber(new ParticleEmissionNumber(ParticleEmissionNumber.PER_SECONDS, 40));
+		rules.setNumber(new ParticleEmissionNumber(ParticleEmissionNumber.PER_SECONDS, 1));
 		rules.setLife(new ParticleLife(5, true));
 		rules.setDuration(new ParticleEmissionDuration(true));
 		//rules.setLight(new ParticleEmissionLightRandom(rayHandler, 128, new Color(0.37647f, 1f, 1f, 1), 35, 45));
 		rules.setLight(new ParticleEmissionLightRandom(rayHandler, 128, new Color(0.3f, 1f, 0.4f, 1), 35, 45));
 
-		system = new ParticleSystem(ParticleType.HALO, null, camera);
+		system = new ParticleSystem(ParticleType.TEXTURE, null, camera);
 		system.setRules(rules);
 		system.setParticlesPosition(300, 200);
 
 		PhysicManager physicManager = new PhysicManager();
-		physicManager.addForce(new BrownianForce(50, 100, 10000, 0.1D));
+		//physicManager.addForce(new BrownianForce(50, 100, 10000, 0.1D));
 		physicManager.addForce(new RandomLinearForce(5, 30, 0, 0));
-		physicManager.addForce(new RadialForce(10));
+		//physicManager.addForce(new RadialForce(10));
 		system.setPhysicManager(physicManager);
 
-		//system.setTexture(new ParticleTexture("nade.png"));
+		Texture[] textures = new Texture[2];
+		textures[0] = new Texture("nade.png");
+		textures[1] = new Texture("halo.png");
+		system.setTexture(new ParticleTexture(new AnimatedTexture(textures, 1)));
+
+		Packer packer = new Packer(system);
 
 		recorder = new GifRecorder(batch);
 	}
